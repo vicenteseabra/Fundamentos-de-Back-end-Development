@@ -4,7 +4,7 @@ const nome = prompt("Nome do Aluno: ");
 const numNotas = 3;
 var listaMaterias = [];
 
-
+// Calcula a media das 3 notas
 function calculaNotas(){
     let notas = [];
     for (let i = 0; i < numNotas; i++) {
@@ -16,7 +16,7 @@ function calculaNotas(){
     return media;
 }
 
-
+// instancia um objeto materia e adciona a lista de materias
 function novaMateria(){
     var materia = new Object();
     materia.nome = prompt("Nome da Materia: ");
@@ -25,7 +25,7 @@ function novaMateria(){
     listaMaterias.push(materia);
 }
 
-
+//imprime o nome da materia e o resultado
 function imprimirMateria(indice){
     let imprimir = listaMaterias[indice];
     console.log(imprimir.nome+":");
@@ -38,7 +38,11 @@ function imprimirMateria(indice){
     }
     console.log("");
 }
+
+//variavel para servir como teste para o loop while continuar
 var continuar=true;
+
+//laço de repetição que roda até que o usuario digite o numero 0
 while(continuar){
     novaMateria();
     console.log("Deseja continuar? ");
@@ -53,6 +57,8 @@ while(continuar){
     }
 
 }
+
+//teste para saber se o usuario digitou o numero minimo de materias
 if(listaMaterias.length<3){
     console.log("Numero de materias insuficientes(abaixo de 3)");
 }else{
