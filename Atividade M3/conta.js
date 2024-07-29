@@ -1,4 +1,5 @@
 class Conta{
+    //metodo construtor
     constructor(titular, saldo){
         this.titular = titular;
         this.saldo = saldo;

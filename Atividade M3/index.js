@@ -1,3 +1,4 @@
+//importa o que sera usado posteriormente
 const prompt = require("prompt-sync")();
 const ContaCorrente = require("./corrente");
 const ContaPoupanca = require("./poupanca");
@@ -20,6 +21,7 @@ function promptNumber(message, minimo, maximo) {
 const nome = prompt("Nome do Titular da Conta: ");
 const saldo = promptNumber("Saldo da Conta: ", -Number.MAX_VALUE, Number.MAX_VALUE);
 
+// Capta o tipo da conta
 let tipo;
 while (true) {
     console.log("Qual tipo da Conta? ");
@@ -49,16 +51,21 @@ else{
 conta.validar();
 
 //console.log(conta); // somente para teste
-let movimentar = true;
 
+//Teste de movimentações na conta
+let movimentar = true;
 while(movimentar){
     console.log("Deseja fazer alguma movimentação?\n - Sim: Digite 1\n - Não: Digite 0")
     let resposta =  promptNumber("", 0, 1);
     if(resposta == 1){
         console.log("- Sacar: Digite 0");
         console.log("- Depositar: Digite 1");
+
+        //testa se a conta é corrente ou poupança
         if(conta instanceof ContaCorrente){console.log("- Aplicar Juros: Digite 3");}
         else{console.log("- Aplicar Rendimento: Digite 4");}
+
+        //faz a operação de acordo com o numero digitado
         let operacao = promptNumber("", 0, 4);
         if(operacao==0){
             console.log(`Saldo atual: ${conta.saldo}`);
@@ -80,6 +87,7 @@ while(movimentar){
             console.log(`Saldo após Aplicar Rendimento: ${conta.saldo}`);
         }
     }else{
+        //encerra as movimentações na conta
         console.log(`Obrigado, volte sempre ${nome}!`);
         movimentar = false;
     }
