@@ -6,7 +6,7 @@ class ContaCorrente extends Conta{
         this.juros = juros;
     }
     aplicarJuros(){
-        saldo *= this.juros;
+        this.saldo *= this.juros;
     }
     validaJuros(){
         if(typeof(this.juros)!="number"){

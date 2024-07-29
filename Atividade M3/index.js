@@ -41,23 +41,37 @@ if(tipo == 1){
     conta.validaJuros();
 
 }
-else if(tipo == 0){
+else{
     var input = prompt("Rendimento: ");
     rendimento =  parseFloat(input);
     conta = new ContaPoupanca(rendimento, nome, saldo);
     conta.validaRendimento();
 
-}else{
-    throw new Error("Número inválido");
 }
-//valida os dados
 conta.validar();
 
-//console.log(conta); // somente p teste
+//console.log(conta); // somente para teste
 
 
-// Testa o método depositar
+/* Testa o método depositar
 console.log(`Saldo atual: ${conta.saldo}`);
 const valor = promptNumber("Qual valor deseja depositar? ");
 conta.depositar(valor);
-console.log(`Saldo após depósito: ${conta.saldo}`);
+console.log(`Saldo após depósito: ${conta.saldo}`);*/
+
+
+/* Testa o método depositar
+console.log(`Saldo atual: ${conta.saldo}`);
+const valor = promptNumber("Qual valor deseja sacar? ");
+conta.sacar(valor);
+console.log(`Saldo após depósito: ${conta.saldo}`);*/
+
+/* Testa o metodo para aplicar redimento
+console.log(`Saldo atual: ${conta.saldo}`);
+conta.aplicarRendimento();
+console.log(`Saldo após Aplicar Rendimento: ${conta.saldo}`);*/
+
+/*Testa o metodo para aplicar juros
+console.log(`Saldo atual: ${conta.saldo}`);
+conta.aplicarJuros();
+console.log(`Saldo após Aplicar Juros: ${conta.saldo}`);*/

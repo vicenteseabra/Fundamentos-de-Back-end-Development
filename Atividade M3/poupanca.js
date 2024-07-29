@@ -5,8 +5,8 @@ class ContaPoupanca extends Conta{
         super(titular, saldo);
         this.rendimento = rendimento;
     }
-    aplicarRendimento(rendimento){
-        this.saldo *= rendimento;
+    aplicarRendimento(){
+        this.saldo *= this.rendimento;
     }
     validaRendimento(){
         if(typeof(this.rendimento)!="number"){
