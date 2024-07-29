@@ -3,12 +3,12 @@ const ContaCorrente = require("./corrente");
 const ContaPoupanca = require("./poupanca");
 
 // Função para solicitar um número ao usuário
-function promptNumber(message) {
+function promptNumber(message, minimo, maximo) {
     let number;
     while (true) {
         let input = prompt(message);
         number = parseFloat(input);
-        if (!isNaN(number) && number >= 0) {
+        if (!isNaN(number) && number >= minimo && number <= maximo) {
             break;
         }
         console.log("Por favor, insira um valor numérico válido.");
@@ -18,7 +18,7 @@ function promptNumber(message) {
 
 // Capta os dados da conta
 const nome = prompt("Nome do Titular da Conta: ");
-const saldo = promptNumber("Saldo da Conta: ");
+const saldo = promptNumber("Saldo da Conta: ", -Number.MAX_VALUE, Number.MAX_VALUE);
 
 let tipo;
 while (true) {
@@ -35,15 +35,13 @@ while (true) {
 //teste para validar os dados atribuidos a conta
 let conta;
 if(tipo == 1){
-    var input = prompt("Taxa de Juros: ");
-    juros = parseFloat(input);
+    var juros = promptNumber("Taxa de Juros: ", 0, 100);
     conta = new ContaCorrente(juros, nome, saldo);
     conta.validaJuros();
 
 }
 else{
-    var input = prompt("Rendimento: ");
-    rendimento =  parseFloat(input);
+    var rendimento = promptNumber("Rendimento: ", 0, 100);
     conta = new ContaPoupanca(rendimento, nome, saldo);
     conta.validaRendimento();
 
@@ -51,27 +49,38 @@ else{
 conta.validar();
 
 //console.log(conta); // somente para teste
+let movimentar = true;
 
-
-/* Testa o método depositar
-console.log(`Saldo atual: ${conta.saldo}`);
-const valor = promptNumber("Qual valor deseja depositar? ");
-conta.depositar(valor);
-console.log(`Saldo após depósito: ${conta.saldo}`);*/
-
-
-/* Testa o método depositar
-console.log(`Saldo atual: ${conta.saldo}`);
-const valor = promptNumber("Qual valor deseja sacar? ");
-conta.sacar(valor);
-console.log(`Saldo após depósito: ${conta.saldo}`);*/
-
-/* Testa o metodo para aplicar redimento
-console.log(`Saldo atual: ${conta.saldo}`);
-conta.aplicarRendimento();
-console.log(`Saldo após Aplicar Rendimento: ${conta.saldo}`);*/
-
-/*Testa o metodo para aplicar juros
-console.log(`Saldo atual: ${conta.saldo}`);
-conta.aplicarJuros();
-console.log(`Saldo após Aplicar Juros: ${conta.saldo}`);*/
+while(movimentar){
+    console.log("Deseja fazer alguma movimentação?\n - Sim: Digite 1\n - Não: Digite 0")
+    let resposta =  promptNumber("", 0, 1);
+    if(resposta == 1){
+        console.log("- Sacar: Digite 0");
+        console.log("- Depositar: Digite 1");
+        if(conta instanceof ContaCorrente){console.log("- Aplicar Juros: Digite 3");}
+        else{console.log("- Aplicar Rendimento: Digite 4");}
+        let operacao = promptNumber("", 0, 4);
+        if(operacao==0){
+            console.log(`Saldo atual: ${conta.saldo}`);
+            const valor = promptNumber("Qual valor deseja sacar? ", 0, conta.saldo);
+            conta.sacar(valor);
+            console.log(`Saldo após depósito: ${conta.saldo}`);
+        }else if(operacao==1){
+            console.log(`Saldo atual: ${conta.saldo}`);
+            const valor = promptNumber("Qual valor deseja depositar? ", 0, Number.MAX_VALUE);
+            conta.depositar(valor);
+            console.log(`Saldo após depósito: ${conta.saldo}`);
+        }else if(operacao==3){
+            console.log(`Saldo atual: ${conta.saldo}`);
+            conta.aplicarJuros();
+            console.log(`Saldo após Aplicar Juros: ${conta.saldo}`);
+        }else{
+            console.log(`Saldo atual: ${conta.saldo}`);
+            conta.aplicarRendimento();
+            console.log(`Saldo após Aplicar Rendimento: ${conta.saldo}`);
+        }
+    }else{
+        console.log(`Obrigado, volte sempre ${nome}!`);
+        movimentar = false;
+    }
+}
